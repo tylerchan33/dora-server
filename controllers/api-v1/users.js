@@ -97,4 +97,6 @@ router.get('/auth-locked', authLockedRoute, (req, res) => {
   res.json( { msg: 'welcome to the private route!' })
 })
 
+
+
 module.exports = router

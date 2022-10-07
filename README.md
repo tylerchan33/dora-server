@@ -8,7 +8,7 @@ d'ora is a music social media app that allows you to share albums and songs, alo
 We will using the [last.fm API](www.last.fm/api) at the moment.
 
 API Interaction
-![API](/api.png)
+![API](/media/api.png)
 
 # ERDs
 
