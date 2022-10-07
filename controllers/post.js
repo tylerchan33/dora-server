@@ -38,7 +38,8 @@ router.get("/:id/edit", async (req, res) => {
 
 router.post("/new", async (req, res) => {
     try {
-        res.json("posting new post")
+        const newPost = await db.Post.create(req.body)
+        res.json(newPost)
     } catch(err) {
         console.warn(err)
     }
@@ -46,7 +47,9 @@ router.post("/new", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
     try {
-        res.json("updates post")
+        const options = { new: true }
+        const updatePost = await db.Post.findByIdAndUpdate(req.params.id, req.body, options)
+        res.json(updatePost)
     } catch(err) {
         console.warn(err)
     }
@@ -54,7 +57,8 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     try {
-        res.json("deletes post")
+        await db.Post.findByIdAndDelete(req.params.id)
+        res.sendStatus(204)
     } catch(err) {
         console.warn(err)
     }

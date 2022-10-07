@@ -12,7 +12,11 @@ const PostSchema = new mongoose.Schema({
     },
     blurb: {
         type: String
-    }
+    },
+    user: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    }]
 
 }, { 
     timestamps: true
