@@ -5,8 +5,8 @@ const db = require("../models")
 // renders home page
 router.get("/", async (req, res) => {
     try {
-        console.log("hello")
-        res.json("post")
+        const posts = await db.Post.find({})
+        res.json(posts)
     } catch (err) {
         console.warn(err)
     }
