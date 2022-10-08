@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const db = require("../models")
+const db = require("../../models")
 
 // renders home page
 router.get("/", async (req, res) => {
@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 router.get("/new", async (req, res) => {
     try {
         console.log("hey")
-        res.json("new post form")
+        res.json({msg:"new post form"})
     } catch (err) {
         console.warn(err)
     }
@@ -24,7 +24,7 @@ router.get("/new", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        res.json("post by id")
+        res.json({msg:`post by id:${req.params.id}`})
     } catch(err) {
         console.warn(err)
     }
@@ -32,7 +32,7 @@ router.get("/:id", async (req, res) => {
 
 router.get("/:id/edit", async (req, res) => {
     try {
-        res.json("edit page for a post")
+        res.json({msg:`edit page for a post:${req.params.id}`})
     } catch(err) {
         console.warn(err)
     }
