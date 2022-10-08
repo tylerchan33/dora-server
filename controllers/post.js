@@ -6,6 +6,7 @@ const db = require("../models")
 router.get("/", async (req, res) => {
     try {
         const posts = await db.Post.find({})
+        console.log(posts)
         res.json(posts)
     } catch (err) {
         console.warn(err)
@@ -14,6 +15,7 @@ router.get("/", async (req, res) => {
 
 router.get("/new", async (req, res) => {
     try {
+        console.log("hey")
         res.json("new post form")
     } catch (err) {
         console.warn(err)
@@ -39,6 +41,7 @@ router.get("/:id/edit", async (req, res) => {
 router.post("/new", async (req, res) => {
     try {
         const newPost = await db.Post.create(req.body)
+        
         res.json(newPost)
     } catch(err) {
         console.warn(err)
