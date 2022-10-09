@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { Post } = require("../../models/Post")
 const db = require("../../models")
 
 // renders home page
@@ -24,7 +25,8 @@ router.get("/new", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
     try {
-        res.json({msg:`post by id:${req.params.id}`})
+        const post = await db.Post.findById(req.params.id)
+        res.json(post)
     } catch(err) {
         console.warn(err)
     }
@@ -41,7 +43,6 @@ router.get("/:id/edit", async (req, res) => {
 router.post("/new", async (req, res) => {
     try {
         const newPost = await db.Post.create(req.body)
-        
         res.json(newPost)
     } catch(err) {
         console.warn(err)
