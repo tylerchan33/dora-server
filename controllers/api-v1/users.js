@@ -100,11 +100,32 @@ router.get('/auth-locked', authLockedRoute, (req, res) => {
   res.json( { msg: 'welcome to the private route!' })
 })
 
-router.put('/profile/edit', async (req, res) => {
+router.get('/:userId', async (req, res) => {
+  try {
+    const findUser = await db.User.findById(req.params.userId)
+    res.json(findUser)
+  } catch(error) {
+    console.log(error)
+    res.status(500).json({ msg: 'server error'  })
+  }
+})
+
+router.put('/profile/:userId/edit', async (req, res) => {
   try{
-    
-  } catch (err) {
-    console.warn(err) 
+    const options = { new: true }
+    const updateUser = await db.User.findByIdAndUpdate(req.params.userId, req.body, options)
+    await updateUser.save()
+    const payload = {
+      name: updateUser.name,
+      username: updateUser.username,
+      email: updateUser.email,
+      id: updateUser.id
+    }
+    const token = await jwt.sign(payload, process.env.JWT_SECRET)
+    res.json({ token })
+  } catch(error) {
+    console.log(error)
+    res.status(500).json({ msg: 'server error'  })
   }
 })
 
