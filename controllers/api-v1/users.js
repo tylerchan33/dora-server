@@ -113,7 +113,11 @@ router.get('/:userId', async (req, res) => {
 router.put('/profile/:userId/edit', async (req, res) => {
   try{
     const options = { new: true }
+    const password = req.body.password
+    const saltRounds = 12
+    const hashedPassword = await bcrypt.hash(password, saltRounds)
     const updateUser = await db.User.findByIdAndUpdate(req.params.userId, req.body, options)
+   
     await updateUser.save()
     const payload = {
       name: updateUser.name,
