@@ -100,7 +100,7 @@ router.get('/auth-locked', authLockedRoute, (req, res) => {
   res.json( { msg: 'welcome to the private route!' })
 })
 
-router.get('/:userId', async (req, res) => {
+router.get('/:userId', authLockedRoute, async (req, res) => {
   try {
     const findUser = await db.User.findById(req.params.userId)
     res.json(findUser)
@@ -110,7 +110,7 @@ router.get('/:userId', async (req, res) => {
   }
 })
 
-router.put('/profile/:userId/edit', async (req, res) => {
+router.put('/profile/:userId/edit', authLockedRoute, async (req, res) => {
   try{
 
     const foundUser = await db.User.findOne({
